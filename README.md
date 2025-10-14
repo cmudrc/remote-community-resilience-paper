@@ -48,7 +48,7 @@ python main.py
 
 * __Local:__ After running `main/main.py`, inspect the `main/result/` directory.
 * __Remote:__ Precomputed results are hosted on Hugging Face: 
-[https://huggingface.co/datasets/cmudrc/alaska-community-resilience-paper](https://huggingface.co/datasets/cmudrc/alaska-community-resilience-paper)
+[cmudrc/alaska-community-resilience-paper](https://huggingface.co/datasets/cmudrc/alaska-community-resilience-paper)
 
 ## Analysis
 
