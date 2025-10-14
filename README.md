@@ -1,8 +1,8 @@
-# PiperABM-INCOSE
+# Community Resilience in Alaska
 
 ### "Agent-Based Modeling for the Evaluation of Community Resilience In Silico"
 
-_Paper submitted to [INCOSE (International Council on Systems Engineering)](https://incose.onlinelibrary.wiley.com)_
+_Paper submitted to [Engineering Reports](https://onlinelibrary.wiley.com/journal/25778196)_
 
 ## Overview
 
