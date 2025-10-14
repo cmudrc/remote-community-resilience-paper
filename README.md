@@ -6,7 +6,7 @@ _Paper submitted to [Engineering Reports](https://onlinelibrary.wiley.com/journa
 
 ## Overview
 
-This repository contains all code, data links, and analysis scripts used in the PiperABM paper submitted to INCOSE. The project is structured to allow users to run full simulations, explore existing results, and reproduce the analysis presented in the paper.
+This repository contains all code, data links, and analysis scripts used in the paper "Agent-Based Modeling for the Evaluation of Community Resilience In Silico" submitted to [Engineering Reports](https://onlinelibrary.wiley.com/journal/25778196). The project is structured to allow users to run full simulations, explore existing results, and reproduce the analysis presented in the paper.
 
 ## Repository Structure
 ```
