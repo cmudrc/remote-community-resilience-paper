@@ -23,6 +23,44 @@ titles = [
     '15% Random Impact',
 ]
 
+def alive_ratio_from_accessibility(measurement):
+    """
+    Compute alive ratio using absorbing death logic.
+
+    An agent is considered dead once A_i,t == 0, where A_i,t is the
+    geometric mean of food, water, and energy accessibility. Once dead,
+    the agent remains dead for all later time steps.
+    """
+    agent_access = measurement.accessibility.sum_resources(
+        agents="all",
+        resources="all"
+    )
+
+    agent_ids = list(agent_access.keys())
+    n_agents = len(agent_ids)
+    n_steps = measurement.accessibility.len
+
+    dead_agents = set()
+    alive_ratio = []
+    alive_count = []
+    death_count = []
+
+    for t in range(n_steps):
+        for agent_id in agent_ids:
+            if agent_id in dead_agents:
+                continue
+
+            if agent_access[agent_id][t] <= 0:
+                dead_agents.add(agent_id)
+
+        n_alive = n_agents - len(dead_agents)
+
+        alive_count.append(n_alive)
+        death_count.append(len(dead_agents))
+        alive_ratio.append(n_alive / n_agents)
+
+    return alive_ratio, alive_count, death_count
+
 results = []
 
 for i, name in enumerate(names):
@@ -36,13 +74,17 @@ for i, name in enumerate(names):
         name=name
     )
     measurement.load()
+    alive_ratio, alive_count, death_count = alive_ratio_from_accessibility(measurement)
     result = {
         'title': titles[i],
-        'accessibility': measurement.accessibility(),  # list
+        'accessibility': measurement.accessibility(),
         'average accessibility': measurement.accessibility.average(),
-        'travel distance': measurement.travel_distance(),  # list
+        'alive ratio': alive_ratio,
+        'alive count': alive_count,
+        'death count': death_count,
+        'travel distance': measurement.travel_distance(),
         'average travel distance': measurement.travel_distance.average(),
-        'delta_times': measurement.filter_times()  # list
+        'delta_times': measurement.filter_times()
     }
     results.append(result)
 
@@ -78,6 +120,19 @@ def show(results):
         axes[0, i].set_ylim(min_access, max_access)
         axes[0, i].text(0.62, 0.9, f'Average: {result["average accessibility"]:.3f}',
                         transform=axes[0, i].transAxes, fontsize=12, fontweight='bold')
+        
+        
+        # Add alive fractions to the same plot
+        axes[0, i].plot(
+            times_in_days,
+            result['alive ratio'],
+            color='darkorange',   # explicitly set
+            linestyle='--',
+            label='survival ratio'
+        )
+
+        axes[0, i].legend()
+        
         
         # Travel distance plot in the second row
         axes[1, i].plot(times_in_days, result['travel distance'])
