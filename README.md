@@ -1,4 +1,4 @@
-# Community Resilience in Alaska
+# Resilience in Remote Communities
 
 ### "Agent-Based Modeling for the Evaluation of Community Resilience In Silico"
 
